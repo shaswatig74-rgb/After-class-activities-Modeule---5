@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</head>
+<body>
+<h1 style="text-align: center;">Bank App</h1>  
+<form>
+    <label id="label1">Enter Transaction Amount
+    <textarea id="text"></textarea>
+    </label>
+</form>  
+<button type="button" class="btn btn-secondary" id="mybtn1">Credit</button>
+<button type="button" class="btn btn-secondary" id="mybtn2">Debit</button>
+<p id="current_balance"></p>
+<p id="myp"></p>
+
+
+<script>
+let account_balance = 500; // starting balance
+const current_balance_el = document.getElementById("current_balance");
+const mybtn1 = document.getElementById("mybtn1");
+const mybtn2 = document.getElementById("mybtn2");
+const myp = document.getElementById("myp");
+const text = document.getElementById("text");
+
+current_balance_el.innerText = account_balance;
+
+function checkAmount(isWithdraw) {
+    let amount = parseInt(text.value);
+
+    if (isNaN(amount)) {
+        myp.innerText = "Please Enter Amount";
+    } else if (amount == 0) {
+        myp.innerText = "Please Enter Amount greater than 0";
+    } else if (amount > 100) {
+        myp.innerText = "Please Enter Amount lesser than given amount";
+    } else {
+        if (isWithdraw) {
+            account_balance -= amount;
+        } else {
+            account_balance += amount;
+        }
+        current_balance_el.innerText = account_balance;
+        myp.innerText = "Balance left: " + account_balance;
+    }
+}
+
+mybtn1.addEventListener('click', function() { checkAmount(true); });
+mybtn2.addEventListener('click', function() { checkAmount(false); });
+</script>
+   
+</body>
+</html>
